@@ -72,3 +72,17 @@ canvas{
     top: 10vmin;
     left: 0;
 }
+.ctrlbtns{
+    height: 10vmin;
+    width: 10vmin;
+    text-align: center;
+    border: #888 1px solid;
+    border-radius: 1vmin;
+}
+.controlPadContainer{
+    bottom: 0;
+    width: 100vw;
+}
+.invisible{
+    opacity: 0;
+}

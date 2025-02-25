@@ -5,6 +5,10 @@ let pausebtn=document.querySelector('#pause')
 let snakeDirection
 let snakeSpeed
 let firstMove=true
+let upBtn=document.querySelector('#upbtn')
+let leftBtn=document.querySelector('#leftbtn')
+let rightBtn=document.querySelector('#rightbtn')
+let downBtn=document.querySelector('#downbtn')
 window.addEventListener('keydown', (e) => {
     keyPressed(e.key)
 })
@@ -13,6 +17,24 @@ window.addEventListener('keyup', (e) => {
 })
 pausebtn.addEventListener('click',pauseGame)
 restartBtn.addEventListener('click',restartGame)
+
+upBtn.addEventListener('click',()=>{
+    keyPressed(arrowKeys[0])
+    keyStatus[arrowKeys[0]] = false
+})
+downBtn.addEventListener('click',()=>{
+    keyPressed(arrowKeys[1])
+    keyStatus[arrowKeys[1]] = false
+})
+leftBtn.addEventListener('click',()=>{
+    keyPressed(arrowKeys[2])
+    keyStatus[arrowKeys[2]] = false
+})
+rightBtn.addEventListener('click',()=>{
+    keyPressed(arrowKeys[3])
+    keyStatus[arrowKeys[3]] = false
+})
+
 function keyPressed(key) {
     if(key ==' '){
         pauseGame()
