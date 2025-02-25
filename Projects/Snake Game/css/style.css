@@ -93,8 +93,8 @@ canvas{
 }
 #touchCtrls{
     position: fixed;
-    bottom: 0;
-    left: 0;
+    bottom: 2vmin;
+    left: 2vmin;
     border: 2px solid #ccc;
     border-radius: 1vmin;
     color: #ccc;
