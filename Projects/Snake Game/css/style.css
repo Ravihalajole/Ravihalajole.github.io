@@ -73,8 +73,9 @@ canvas{
     left: 0;
 }
 .ctrlbtns{
-    height: 10vmin;
-    width: 10vmin;
+    height: 20vmin;
+    width: 20vmin;
+    line-height: 5;
     text-align: center;
     border: #888 1px solid;
     border-radius: 1vmin;
