@@ -3,6 +3,8 @@
     margin: 0;
     box-sizing: border-box;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    user-select: none;
+    cursor: pointer;
 }
 
 .flex{
@@ -47,13 +49,13 @@
     color: rgb(255, 255, 255);
 }
 #pause{
-    background-color: rgb(47, 207, 108);
     color: rgb(56, 56, 56);
     width: max-content;
     position: fixed;
     top: 1vmin;
     left: 1vmin;
     padding: 2vmin;
+    border: 2px solid #fff ;
     border-radius: 1vmin;
 }
 
@@ -77,11 +79,11 @@ canvas{
     width: 20vmin;
     line-height: 5;
     text-align: center;
-    border: #888 1px solid;
+    border: #888 2px solid;
     border-radius: 1vmin;
 }
 .controlPadContainer{
-    bottom: 0;
+    bottom: 5vmin;
     width: 100vw;
 }
 .invisible{
