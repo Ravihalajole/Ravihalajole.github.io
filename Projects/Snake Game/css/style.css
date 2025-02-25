@@ -85,7 +85,20 @@ canvas{
 .controlPadContainer{
     bottom: 5vmin;
     width: 100vw;
+
 }
 .invisible{
     opacity: 0;
+}
+#touchCtrls{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border: 2px solid #999;
+    border-radius: 1vmin;
+    color: #888;
+
+}
+#controlPad{
+    display: none;
 }

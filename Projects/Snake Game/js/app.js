@@ -88,17 +88,4 @@ function restartGame(){
     pausebtn.style.display='block'
 }
 
-function pauseGame(){
-    if(!isPaused){
-    disableControls=true
-    tempSpeedX=Game.snake[0].speedX
-    tempSpeedY=Game.snake[0].speedY
-    stopMove()
-    isPaused=true}
-    else if(isPaused){
-        disableControls=false
-    Game.snake[0].speedX=tempSpeedX
-    Game.snake[0].speedY=tempSpeedY
-    isPaused=false
-    }
-}
+

@@ -9,6 +9,10 @@ let upBtn=document.querySelector('#upbtn')
 let leftBtn=document.querySelector('#leftbtn')
 let rightBtn=document.querySelector('#rightbtn')
 let downBtn=document.querySelector('#downbtn')
+let touchControls=document.querySelector('#touchCtrls')
+let controlPad=document.querySelector('#controlPad')
+let controlPadStatus=false
+
 window.addEventListener('keydown', (e) => {
     keyPressed(e.key)
 })
@@ -34,6 +38,8 @@ rightBtn.addEventListener('click',()=>{
     keyPressed(arrowKeys[3])
     keyStatus[arrowKeys[3]] = false
 })
+
+touchControls.addEventListener('click',handleTouchCtrls)
 
 function keyPressed(key) {
     if(key ==' '){
@@ -75,3 +81,31 @@ function stopMove() {
     Game.snake[0].speedY = 0
 }
 
+function pauseGame(){
+    if(!isPaused){
+    disableControls=true
+    tempSpeedX=Game.snake[0].speedX
+    tempSpeedY=Game.snake[0].speedY
+    stopMove()
+    pausebtn.innerText='Resume'
+    isPaused=true}
+    else if(isPaused){
+    disableControls=false
+    Game.snake[0].speedX=tempSpeedX
+    Game.snake[0].speedY=tempSpeedY
+    isPaused=false
+    pausebtn.innerText='Pause'
+    }
+}
+
+function handleTouchCtrls(){
+    if(controlPadStatus==true){
+        controlPad.style.display='none'
+        controlPadStatus=false
+    }
+    else if(controlPadStatus==false){
+        controlPad.style.display='flex'
+        controlPadStatus=true
+    }
+    
+}
