@@ -1,6 +1,7 @@
 let arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 let keyStatus = {}
-let restartBtn=document.querySelector('.restartbtn')
+let restartBtn=document.querySelector('#restartbtn')
+let startGamebtn=document.querySelector('#start-game')
 let pausebtn=document.querySelector('#pause')
 let snakeDirection
 let snakeSpeed
@@ -11,7 +12,10 @@ let rightBtn=document.querySelector('#rightbtn')
 let downBtn=document.querySelector('#downbtn')
 let touchControls=document.querySelector('#touchCtrls')
 let controlPad=document.querySelector('#controlPad')
-let controlPadStatus=false
+let difficulty=document.querySelectorAll('.diff-radio')
+let gameDiffBoard=document.querySelector('#gameDiffBoard')
+let gameTitle=document.querySelector('#gameTitle')
+let homeBtn=document.querySelector('#homebtn')
 
 window.addEventListener('keydown', (e) => {
     keyPressed(e.key)
@@ -21,7 +25,14 @@ window.addEventListener('keyup', (e) => {
 })
 pausebtn.addEventListener('click',pauseGame)
 restartBtn.addEventListener('click',restartGame)
+startGamebtn.addEventListener('click',initializeGame)
+homeBtn.addEventListener('click',goToHome)
 
+difficulty.forEach((radio)=>{
+    radio.addEventListener('click',()=>{
+        refreshRate=radio.value
+    })
+})
 upBtn.addEventListener('click',()=>{
     keyPressed(arrowKeys[0])
     keyStatus[arrowKeys[0]] = false
@@ -87,25 +98,17 @@ function pauseGame(){
     tempSpeedX=Game.snake[0].speedX
     tempSpeedY=Game.snake[0].speedY
     stopMove()
-    pausebtn.innerText='Resume'
+    pausebtn.textContent='Resume'
     isPaused=true}
     else if(isPaused){
     disableControls=false
     Game.snake[0].speedX=tempSpeedX
     Game.snake[0].speedY=tempSpeedY
     isPaused=false
-    pausebtn.innerText='Pause'
+    pausebtn.textContent='Pause'
     }
 }
 
 function handleTouchCtrls(){
-    if(controlPadStatus==true){
-        controlPad.style.display='none'
-        controlPadStatus=false
-    }
-    else if(controlPadStatus==false){
-        controlPad.style.display='flex'
-        controlPadStatus=true
-    }
-    
+    controlPad.classList.toggle('hide')
 }
