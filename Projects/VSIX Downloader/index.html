@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VSIX Downloader</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #f4f4f4;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #222;
+      }
+
+      #mainForm {
+        background-color: #fff;
+        padding: 30px 35px;
+        border-radius: 12px;
+        box-shadow: 0  2px 12px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 420px;
+      }
+
+      label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #444;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border 0.2s;
+      }
+
+      input[type="text"]:focus {
+        border-color: #555;
+        outline: none;
+      }
+
+      input[type="submit"] {
+        background-color: #222;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #333;
+      }
+
+      #credits {
+        text-align: center;
+        color: #888;
+        font-size: 0.85rem;
+        margin-top: 25px;
+      }
+
+      #credits a {
+        color: #0093ce;
+        text-decoration: none;
+      }
+
+      #credits a:hover {
+        color: #222;
+      }
+
+      section#credits h4 {
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>VSIX Downloader</h1>
+      <form id="mainForm">
+        <label for="extUrl">Extension URL</label>
+        <input
+          id="extUrl"
+          name="extUrl"
+          type="text"
+          placeholder="https://marketplace.visualstudio.com/items?itemName=publisher.name"
+          required
+        />
+
+        <label for="extVersion">Extension Version</label>
+        <input
+          id="extVersion"
+          name="extVersion"
+          type="text"
+          placeholder="1.0.0"
+          required
+        />
+
+        <input type="submit" value="Generate Download Link" />
+      </form>
+      <small style="color: #777">
+        * After downloading, rename the file extension to <strong>.vsix</strong> if not already.
+      </small>
+      <section id="credits">
+        <h4>Credits</h4>
+        <p>
+          StackOverflow
+          <a
+            href="https://stackoverflow.com/questions/37071388/how-can-i-install-visual-studio-code-extensions-offline"
+            >=></a
+          >
+        </p>
+        <p>Developed by Ravi</p>
+      </section>
+    </div>
+
+    <script>
+      const form = document.querySelector("#mainForm");
+      form.addEventListener("submit", generateDownloadLink);
+      //  extract publisher name and extension name
+      function extractData(url) {
+        const tempArray = url.split("=");
+        return tempArray[1].split(".");
+      }
+
+      function generateDownloadLink(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const marketUrl = formData.get("extUrl");
+        const version = formData.get("extVersion");
+        const [publisher, extension_name] = extractData(marketUrl);
+        const resultUrl = `https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${extension_name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage`;
+        window.open(resultUrl);
+      }
+    </script>
+  </body>
+</html>
