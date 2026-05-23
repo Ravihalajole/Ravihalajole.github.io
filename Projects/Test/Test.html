@@ -3,27 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Product - PriceDrop</title>
+    <title>Ultra Challenge - PriceDrop</title>
     <style>
-        body { font-family: sans-serif; padding: 40px; }
-        .product-container { max-width: 600px; padding: 20px; border: 1px solid #ccc; border-radius: 12px; }
-        .mrp { text-decoration: line-through; color: #888; font-size: 1.2em; }
-        .deal-price { color: #b12704; font-size: 2em; font-weight: bold; margin-left: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background-color: #f4f4f9; }
+        .card { background: white; max-width: 500px; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.6em; color: #333; margin-bottom: 20px; }
+
+        /* TRICK 1: Hide the currency symbol from Jsoup using CSS! */
+        .cost-value::before {
+            content: '₹';
+            margin-right: 2px;
+            font-weight: bold;
+        }
+
+        /* Confusing class names so your visual selectors fail */
+        .cost-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #27ae60;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .promo-box {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border-left: 4px solid #ffeeba;
+        }
     </style>
 </head>
 <body>
 
-    <div class="product-container">
-        <!-- The scraper should pick this up as the title -->
-        <h1 id="product-title" data-testid="product-title">Sony WH-1000XM5 Headphones</h1>
-        
-        <div class="pricing">
-            <span class="mrp">₹34,990</span>
-            <!-- The scraper will target this price -->
-            <span class="deal-price" id="current-price">₹29,990</span>
+    <div class="card">
+        <h1 id="item-title">Mystery Tech Gadget Pro Max</h1>
+
+        <!-- TRAP 1: The heuristic scanner will find this first! It has the ₹ symbol and isn't struck through. -->
+        <div class="promo-box">
+            <strong>Optional Add-on:</strong> Protect your device with 1-Year Accidental Damage Cover for just <b>₹999</b>.
+        </div>
+
+        <div style="margin-top: 25px;">
+            <span style="color: #888; font-size: 0.9em; display: block;">Final Payable Amount:</span>
+            
+            <!-- THE REAL PRICE: Jsoup will only see "45,000" here. The regex will skip it! -->
+            <span id="target-me" class="cost-value">45,000</span>
+        </div>
+
+        <!-- TRAP 2: MRP is properly struck through, so your new fix will ignore this. -->
+        <div style="margin-top: 15px; color: #aaa; text-decoration: line-through;" class="mrp">
+            Retail: ₹55,000
         </div>
     </div>
 
 </body>
 </html>
-
